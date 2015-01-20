@@ -40,5 +40,6 @@ namespace scrapping.Models
         public virtual DbSet<ThanhPho> ThanhPhoes { get; set; }
         public virtual DbSet<TruongNganh> TruongNganhs { get; set; }
         public virtual DbSet<Truong> Truongs { get; set; }
+        public virtual DbSet<SystemLog> SystemLogs { get; set; }
     }
 }

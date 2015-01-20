@@ -31,6 +31,7 @@
         <AssociationConnector Association="ProjectHModel.FK_Truong_ThanhPho" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectHModel.FK_TruongNganhs_Truongs" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectHModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ProjectHModel.SystemLog" Width="1.5" PointX="10.375" PointY="11.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

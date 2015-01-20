@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ProjectHModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ProjectHModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -124,6 +124,14 @@
           </Key>
           <Property Name="Key" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="value" Type="int" />
+        </EntityType>
+        <EntityType Name="SystemLogs">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LogMessage" Type="ntext" />
+          <Property Name="DateCreated" Type="datetime" />
         </EntityType>
         <EntityType Name="ThanhPhoes">
           <Key>
@@ -324,6 +332,7 @@
           <EntitySet Name="RatePost" EntityType="Self.RatePost" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SystemInformation" EntityType="Self.SystemInformation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SystemLogs" EntityType="Self.SystemLogs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ThanhPhoes" EntityType="Self.ThanhPhoes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TruongNganhs" EntityType="Self.TruongNganhs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Truongs" EntityType="Self.Truongs" Schema="dbo" store:Type="Tables" />
@@ -376,8 +385,7 @@
             <End Role="TruongNganhs" EntitySet="TruongNganhs" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ProjectHModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -736,7 +744,16 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="SystemLogs" EntityType="ProjectHModel.SystemLog" />
         </EntityContainer>
+        <EntityType Name="SystemLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LogMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -903,6 +920,15 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="SystemLogs">
+            <EntityTypeMapping TypeName="ProjectHModel.SystemLog">
+              <MappingFragment StoreEntitySet="SystemLogs">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="LogMessage" ColumnName="LogMessage" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -14,5 +14,6 @@ namespace scrapping.Controllers
         public string hreft;
         public string ten;
         public List<NodeNganh> nganhs;
+        public string MaTruong;
     }
 }
