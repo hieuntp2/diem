@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ProjectHModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ProjectHModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -20,26 +20,27 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Description" Type="ntext" />
         </EntityType>
         <EntityType Name="AspNetUserClaims">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="ClaimType" Type="nvarchar(max)" />
           <Property Name="ClaimValue" Type="nvarchar(max)" />
-          <Property Name="User_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="AspNetUserLogins">
           <Key>
-            <PropertyRef Name="UserId" />
             <PropertyRef Name="LoginProvider" />
             <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="AspNetUserRoles">
           <Key>
@@ -54,12 +55,24 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
           <Property Name="PasswordHash" Type="nvarchar(max)" />
           <Property Name="SecurityStamp" Type="nvarchar(max)" />
-          <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="HoTen" Type="nvarchar(max)" />
-          <Property Name="NgaySinh" Type="datetime" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="profile_avatar_link" Type="nvarchar(max)" />
+          <Property Name="idTruong" Type="nvarchar" MaxLength="10" />
+          <Property Name="idNganh" Type="nvarchar" MaxLength="10" />
+          <Property Name="congViec" Type="nvarchar(max)" />
+          <Property Name="fbid" Type="nvarchar" MaxLength="255" />
+          <Property Name="sinhNhat" Type="datetime" />
+          <Property Name="hoTen" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="BaiViets">
           <Key>
@@ -68,10 +81,13 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TieuDe" Type="nvarchar(max)" Nullable="false" />
           <Property Name="NoiDung" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="NguoiDang" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="NguoiDang" Type="nvarchar" MaxLength="128" />
           <Property Name="NgayCapNhat" Type="datetime" Nullable="false" />
           <Property Name="Trangthai" Type="int" Nullable="false" />
           <Property Name="Tabs" Type="nvarchar(max)" />
+          <Property Name="linkImage" Type="nvarchar(max)" />
+          <Property Name="SoLanTruyCap" Type="int" />
+          <Property Name="ChuyenMuc" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="InternalMessage">
           <Key>
@@ -92,12 +108,33 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MoTa" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="MBTI">
+          <Key>
+            <PropertyRef Name="idMBTI" />
+          </Key>
+          <Property Name="idMBTI" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Tags" Type="ntext" />
+          <Property Name="GioiThieu" Type="ntext" />
+          <Property Name="short_Description" Type="ntext" />
+        </EntityType>
         <EntityType Name="Nganhs">
           <Key>
             <PropertyRef Name="MaNganh" />
           </Key>
           <Property Name="Ten" Type="nvarchar(max)" Nullable="false" />
           <Property Name="MaNganh" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Questions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tieude" Type="nvarchar(max)" />
+          <Property Name="Noidung" Type="ntext" />
+          <Property Name="userid" Type="nvarchar" MaxLength="128" />
+          <Property Name="Ngaydang" Type="datetime" />
+          <Property Name="Tabs" Type="nvarchar(max)" />
+          <Property Name="SoLanTruyCap" Type="int" />
         </EntityType>
         <EntityType Name="RatePost">
           <Key>
@@ -107,6 +144,28 @@
           <Property Name="IDBaiViet" Type="int" Nullable="false" />
           <Property Name="IDUsername" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Like" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sach">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ten" Type="nvarchar(max)" />
+          <Property Name="linkanh" Type="ntext" />
+          <Property Name="NXB" Type="nvarchar(max)" />
+          <Property Name="tacgia" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="SachChoMuon">
+          <Key>
+            <PropertyRef Name="id_sach" />
+            <PropertyRef Name="id_nguoidung" />
+          </Key>
+          <Property Name="id_sach" Type="int" Nullable="false" />
+          <Property Name="id_nguoidung" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="loai" Type="bit" />
+          <Property Name="diachi" Type="text" />
+          <Property Name="comment" Type="nchar" MaxLength="10" />
+          <Property Name="soluong" Type="int" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -141,15 +200,31 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MoTa" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="TruongNganhMonthis">
+          <Key>
+            <PropertyRef Name="MaTruong" />
+            <PropertyRef Name="MaNganh" />
+            <PropertyRef Name="Nam" />
+          </Key>
+          <Property Name="MaTruong" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="MaNganh" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="idMon1" Type="int" Nullable="false" />
+          <Property Name="idMon2" Type="int" Nullable="false" />
+          <Property Name="idMon3" Type="int" Nullable="false" />
+          <Property Name="Nam" Type="int" Nullable="false" />
+          <Property Name="Diem" Type="float" Nullable="false" />
+          <Property Name="SoLuongTruyCap" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ProjectH.dbo.TruongNganhs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TruongNganhs">
           <Key>
             <PropertyRef Name="MaTruong" />
             <PropertyRef Name="MaNganh" />
-            <PropertyRef Name="KhoiThi" />
+            <PropertyRef Name="NgayCapNhat" />
           </Key>
           <Property Name="MaTruong" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="MaNganh" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="KhoiThi" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Diem1" Type="float" />
           <Property Name="Diem2" Type="float" />
           <Property Name="Diem3" Type="float" />
@@ -165,9 +240,47 @@
           <Property Name="MaTruong" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="LoaiTruong" Type="char" MaxLength="2" />
           <Property Name="linkLogo" Type="nvarchar(max)" />
+          <Property Name="DeAnTuyenSInh" Type="ntext" />
+          <Property Name="GioiThieu" Type="ntext" />
+          <Property Name="background" Type="ntext" />
         </EntityType>
+        <EntityType Name="UserComments">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="500" />
+          <Property Name="Href" Type="ntext" />
+          <Property Name="Comment" Type="ntext" />
+          <Property Name="Rate" Type="int" />
+          <Property Name="ReportDate" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_AspNetUsers_Nganhs">
+          <End Role="Nganhs" Type="Self.Nganhs" Multiplicity="0..1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nganhs">
+              <PropertyRef Name="MaNganh" />
+            </Principal>
+            <Dependent Role="AspNetUsers">
+              <PropertyRef Name="idNganh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUsers_Truongs">
+          <End Role="Truongs" Type="Self.Truongs" Multiplicity="0..1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Truongs">
+              <PropertyRef Name="MaTruong" />
+            </Principal>
+            <Dependent Role="AspNetUsers">
+              <PropertyRef Name="idTruong" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_BaiViets_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
           <End Role="BaiViets" Type="Self.BaiViets" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
@@ -178,7 +291,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -188,7 +301,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="AspNetUserClaims">
-              <PropertyRef Name="User_Id" />
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -242,7 +355,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="InternalMessage">
-              <PropertyRef Name="From" />
+              <PropertyRef Name="To" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -254,7 +367,19 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="InternalMessage">
-              <PropertyRef Name="To" />
+              <PropertyRef Name="From" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Questions_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Questions">
+              <PropertyRef Name="userid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -282,6 +407,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SachChoMuon_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="SachChoMuon" Type="Self.SachChoMuon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SachChoMuon">
+              <PropertyRef Name="id_nguoidung" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SachChoMuon_Sach">
+          <End Role="Sach" Type="Self.Sach" Multiplicity="1" />
+          <End Role="SachChoMuon" Type="Self.SachChoMuon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sach">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SachChoMuon">
+              <PropertyRef Name="id_sach" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Truong_ThanhPho">
           <End Role="ThanhPhoes" Type="Self.ThanhPhoes" Multiplicity="1" />
           <End Role="Truongs" Type="Self.Truongs" Multiplicity="*" />
@@ -291,6 +440,30 @@
             </Principal>
             <Dependent Role="Truongs">
               <PropertyRef Name="IDThanhPho" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TruongNganhMonthi_Nganhs">
+          <End Role="Nganhs" Type="Self.Nganhs" Multiplicity="1" />
+          <End Role="TruongNganhMonthis" Type="Self.TruongNganhMonthis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nganhs">
+              <PropertyRef Name="MaNganh" />
+            </Principal>
+            <Dependent Role="TruongNganhMonthis">
+              <PropertyRef Name="MaNganh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TruongNganhMonthi_Truongs">
+          <End Role="Truongs" Type="Self.Truongs" Multiplicity="1" />
+          <End Role="TruongNganhMonthis" Type="Self.TruongNganhMonthis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Truongs">
+              <PropertyRef Name="MaTruong" />
+            </Principal>
+            <Dependent Role="TruongNganhMonthis">
+              <PropertyRef Name="MaTruong" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -328,19 +501,42 @@
           <EntitySet Name="BaiViets" EntityType="Self.BaiViets" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InternalMessage" EntityType="Self.InternalMessage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KhoiThis" EntityType="Self.KhoiThis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MBTI" EntityType="Self.MBTI" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Nganhs" EntityType="Self.Nganhs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RatePost" EntityType="Self.RatePost" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sach" EntityType="Self.Sach" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SachChoMuon" EntityType="Self.SachChoMuon" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SystemInformation" EntityType="Self.SystemInformation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SystemLogs" EntityType="Self.SystemLogs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ThanhPhoes" EntityType="Self.ThanhPhoes" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TruongNganhs" EntityType="Self.TruongNganhs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TruongNganhMonthis" EntityType="Self.TruongNganhMonthis" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Truongs" EntityType="Self.Truongs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserComments" EntityType="Self.UserComments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TruongNganhs" EntityType="Self.TruongNganhs" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TruongNganhs].[MaTruong] AS [MaTruong], 
+    [TruongNganhs].[MaNganh] AS [MaNganh], 
+    [TruongNganhs].[Diem1] AS [Diem1], 
+    [TruongNganhs].[Diem2] AS [Diem2], 
+    [TruongNganhs].[Diem3] AS [Diem3], 
+    [TruongNganhs].[NgayCapNhat] AS [NgayCapNhat]
+    FROM [dbo].[TruongNganhs] AS [TruongNganhs]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_AspNetUsers_Nganhs" Association="Self.FK_AspNetUsers_Nganhs">
+            <End Role="Nganhs" EntitySet="Nganhs" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUsers_Truongs" Association="Self.FK_AspNetUsers_Truongs">
+            <End Role="Truongs" EntitySet="Truongs" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
           <AssociationSet Name="FK_BaiViets_AspNetUsers" Association="Self.FK_BaiViets_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="BaiViets" EntitySet="BaiViets" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
           </AssociationSet>
@@ -364,6 +560,10 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="InternalMessage" EntitySet="InternalMessage" />
           </AssociationSet>
+          <AssociationSet Name="FK_Questions_AspNetUsers" Association="Self.FK_Questions_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Questions" EntitySet="Questions" />
+          </AssociationSet>
           <AssociationSet Name="FK_RatePost_AspNetUsers" Association="Self.FK_RatePost_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="RatePost" EntitySet="RatePost" />
@@ -372,9 +572,25 @@
             <End Role="BaiViets" EntitySet="BaiViets" />
             <End Role="RatePost" EntitySet="RatePost" />
           </AssociationSet>
+          <AssociationSet Name="FK_SachChoMuon_AspNetUsers" Association="Self.FK_SachChoMuon_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="SachChoMuon" EntitySet="SachChoMuon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SachChoMuon_Sach" Association="Self.FK_SachChoMuon_Sach">
+            <End Role="Sach" EntitySet="Sach" />
+            <End Role="SachChoMuon" EntitySet="SachChoMuon" />
+          </AssociationSet>
           <AssociationSet Name="FK_Truong_ThanhPho" Association="Self.FK_Truong_ThanhPho">
             <End Role="ThanhPhoes" EntitySet="ThanhPhoes" />
             <End Role="Truongs" EntitySet="Truongs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TruongNganhMonthi_Nganhs" Association="Self.FK_TruongNganhMonthi_Nganhs">
+            <End Role="Nganhs" EntitySet="Nganhs" />
+            <End Role="TruongNganhMonthis" EntitySet="TruongNganhMonthis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TruongNganhMonthi_Truongs" Association="Self.FK_TruongNganhMonthi_Truongs">
+            <End Role="Truongs" EntitySet="Truongs" />
+            <End Role="TruongNganhMonthis" EntitySet="TruongNganhMonthis" />
           </AssociationSet>
           <AssociationSet Name="FK_TruongNganhs_Nganhs" Association="Self.FK_TruongNganhs_Nganhs">
             <End Role="Nganhs" EntitySet="Nganhs" />
@@ -385,7 +601,8 @@
             <End Role="TruongNganhs" EntitySet="TruongNganhs" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ProjectHModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -399,67 +616,87 @@
           <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
           <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityType Name="AspNetRole">
+        <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
         </EntityType>
-        <EntityType Name="AspNetUserClaim">
+        <EntityType Name="AspNetUserClaims">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="User_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
         </EntityType>
-        <EntityType Name="AspNetUserLogin">
+        <EntityType Name="AspNetUserLogins">
           <Key>
-            <PropertyRef Name="UserId" />
             <PropertyRef Name="LoginProvider" />
             <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
         </EntityType>
-        <EntityType Name="AspNetUser">
+        <EntityType Name="AspNetUsers">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
           <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Discriminator" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="HoTen" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="NgaySinh" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="profile_avatar_link" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="idTruong" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="idNganh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="congViec" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="fbid" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="sinhNhat" Type="DateTime" Precision="3" />
+          <Property Name="hoTen" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="Nganhs" Relationship="Self.FK_AspNetUsers_Nganhs" FromRole="AspNetUsers" ToRole="Nganhs" />
+          <NavigationProperty Name="Truongs" Relationship="Self.FK_AspNetUsers_Truongs" FromRole="AspNetUsers" ToRole="Truongs" />
           <NavigationProperty Name="BaiViets" Relationship="Self.FK_BaiViets_AspNetUsers" FromRole="AspNetUsers" ToRole="BaiViets" />
-          <NavigationProperty Name="InternalMessages" Relationship="Self.FK_InternalMessage_AspNetUsers" FromRole="AspNetUsers" ToRole="InternalMessage" />
-          <NavigationProperty Name="InternalMessages1" Relationship="Self.FK_InternalMessage_AspNetUsers1" FromRole="AspNetUsers" ToRole="InternalMessage" />
-          <NavigationProperty Name="RatePosts" Relationship="Self.FK_RatePost_AspNetUsers" FromRole="AspNetUsers" ToRole="RatePost" />
+          <NavigationProperty Name="InternalMessage" Relationship="Self.FK_InternalMessage_AspNetUsers" FromRole="AspNetUsers" ToRole="InternalMessage" />
+          <NavigationProperty Name="InternalMessage1" Relationship="Self.FK_InternalMessage_AspNetUsers1" FromRole="AspNetUsers" ToRole="InternalMessage" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK_Questions_AspNetUsers" FromRole="AspNetUsers" ToRole="Questions" />
+          <NavigationProperty Name="RatePost" Relationship="Self.FK_RatePost_AspNetUsers" FromRole="AspNetUsers" ToRole="RatePost" />
+          <NavigationProperty Name="SachChoMuon" Relationship="Self.FK_SachChoMuon_AspNetUsers" FromRole="AspNetUsers" ToRole="SachChoMuon" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
         </EntityType>
-        <EntityType Name="BaiViet">
+        <EntityType Name="BaiViets">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TieuDe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="NoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="NguoiDang" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NguoiDang" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="NgayCapNhat" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Trangthai" Type="Int32" Nullable="false" />
           <Property Name="Tabs" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_BaiViets_AspNetUsers" FromRole="BaiViets" ToRole="AspNetUsers" />
-          <NavigationProperty Name="RatePosts" Relationship="Self.FK_RatePost_BaiViets" FromRole="BaiViets" ToRole="RatePost" />
+          <Property Name="linkImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SoLanTruyCap" Type="Int32" />
+          <Property Name="ChuyenMuc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_BaiViets_AspNetUsers" FromRole="BaiViets" ToRole="AspNetUsers" />
+          <NavigationProperty Name="RatePost" Relationship="Self.FK_RatePost_BaiViets" FromRole="BaiViets" ToRole="RatePost" />
         </EntityType>
         <EntityType Name="InternalMessage">
           <Key>
@@ -471,10 +708,10 @@
           <Property Name="To" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Mesage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="DateCreate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_InternalMessage_AspNetUsers" FromRole="InternalMessage" ToRole="AspNetUsers" />
-          <NavigationProperty Name="AspNetUser1" Relationship="Self.FK_InternalMessage_AspNetUsers1" FromRole="InternalMessage" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_InternalMessage_AspNetUsers" FromRole="InternalMessage" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers1" Relationship="Self.FK_InternalMessage_AspNetUsers1" FromRole="InternalMessage" ToRole="AspNetUsers" />
         </EntityType>
-        <EntityType Name="KhoiThi">
+        <EntityType Name="KhoiThis">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -482,13 +719,37 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MoTa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Nganh">
+        <EntityType Name="MBTI">
+          <Key>
+            <PropertyRef Name="idMBTI" />
+          </Key>
+          <Property Name="idMBTI" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Tags" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GioiThieu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="short_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Nganhs">
           <Key>
             <PropertyRef Name="MaNganh" />
           </Key>
           <Property Name="Ten" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MaNganh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_AspNetUsers_Nganhs" FromRole="Nganhs" ToRole="AspNetUsers" />
+          <NavigationProperty Name="TruongNganhMonthis" Relationship="Self.FK_TruongNganhMonthi_Nganhs" FromRole="Nganhs" ToRole="TruongNganhMonthis" />
           <NavigationProperty Name="TruongNganhs" Relationship="Self.FK_TruongNganhs_Nganhs" FromRole="Nganhs" ToRole="TruongNganhs" />
+        </EntityType>
+        <EntityType Name="Questions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tieude" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Noidung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="userid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Ngaydang" Type="DateTime" Precision="3" />
+          <Property Name="Tabs" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SoLanTruyCap" Type="Int32" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_Questions_AspNetUsers" FromRole="Questions" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="RatePost">
           <Key>
@@ -498,10 +759,35 @@
           <Property Name="IDBaiViet" Type="Int32" Nullable="false" />
           <Property Name="IDUsername" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Like" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_RatePost_AspNetUsers" FromRole="RatePost" ToRole="AspNetUsers" />
-          <NavigationProperty Name="BaiViet" Relationship="Self.FK_RatePost_BaiViets" FromRole="RatePost" ToRole="BaiViets" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_RatePost_AspNetUsers" FromRole="RatePost" ToRole="AspNetUsers" />
+          <NavigationProperty Name="BaiViets" Relationship="Self.FK_RatePost_BaiViets" FromRole="RatePost" ToRole="BaiViets" />
         </EntityType>
-        <EntityType Name="sysdiagram">
+        <EntityType Name="Sach">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ten" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="linkanh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NXB" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="tacgia" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SachChoMuon" Relationship="Self.FK_SachChoMuon_Sach" FromRole="Sach" ToRole="SachChoMuon" />
+        </EntityType>
+        <EntityType Name="SachChoMuon">
+          <Key>
+            <PropertyRef Name="id_sach" />
+            <PropertyRef Name="id_nguoidung" />
+          </Key>
+          <Property Name="id_sach" Type="Int32" Nullable="false" />
+          <Property Name="id_nguoidung" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="loai" Type="Boolean" />
+          <Property Name="diachi" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="comment" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="soluong" Type="Int32" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_SachChoMuon_AspNetUsers" FromRole="SachChoMuon" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Sach" Relationship="Self.FK_SachChoMuon_Sach" FromRole="SachChoMuon" ToRole="Sach" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
@@ -518,7 +804,15 @@
           <Property Name="Key" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="value" Type="Int32" />
         </EntityType>
-        <EntityType Name="ThanhPho">
+        <EntityType Name="SystemLogs">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LogMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ThanhPhoes">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -527,23 +821,24 @@
           <Property Name="MoTa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Truongs" Relationship="Self.FK_Truong_ThanhPho" FromRole="ThanhPhoes" ToRole="Truongs" />
         </EntityType>
-        <EntityType Name="TruongNganh">
+        <EntityType Name="TruongNganhMonthis">
           <Key>
             <PropertyRef Name="MaTruong" />
             <PropertyRef Name="MaNganh" />
-            <PropertyRef Name="KhoiThi" />
+            <PropertyRef Name="Nam" />
           </Key>
           <Property Name="MaTruong" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MaNganh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="KhoiThi" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Diem1" Type="Double" />
-          <Property Name="Diem2" Type="Double" />
-          <Property Name="Diem3" Type="Double" />
-          <Property Name="NgayCapNhat" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Nganh" Relationship="Self.FK_TruongNganhs_Nganhs" FromRole="TruongNganhs" ToRole="Nganhs" />
-          <NavigationProperty Name="Truong" Relationship="Self.FK_TruongNganhs_Truongs" FromRole="TruongNganhs" ToRole="Truongs" />
+          <Property Name="idMon1" Type="Int32" Nullable="false" />
+          <Property Name="idMon2" Type="Int32" Nullable="false" />
+          <Property Name="idMon3" Type="Int32" Nullable="false" />
+          <Property Name="Nam" Type="Int32" Nullable="false" />
+          <Property Name="Diem" Type="Double" Nullable="false" />
+          <Property Name="SoLuongTruyCap" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Nganhs" Relationship="Self.FK_TruongNganhMonthi_Nganhs" FromRole="TruongNganhMonthis" ToRole="Nganhs" />
+          <NavigationProperty Name="Truongs" Relationship="Self.FK_TruongNganhMonthi_Truongs" FromRole="TruongNganhMonthis" ToRole="Truongs" />
         </EntityType>
-        <EntityType Name="Truong">
+        <EntityType Name="Truongs">
           <Key>
             <PropertyRef Name="MaTruong" />
           </Key>
@@ -553,28 +848,59 @@
           <Property Name="MaTruong" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LoaiTruong" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
           <Property Name="linkLogo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ThanhPho" Relationship="Self.FK_Truong_ThanhPho" FromRole="Truongs" ToRole="ThanhPhoes" />
+          <Property Name="DeAnTuyenSInh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GioiThieu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="background" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_AspNetUsers_Truongs" FromRole="Truongs" ToRole="AspNetUsers" />
+          <NavigationProperty Name="ThanhPhoes" Relationship="Self.FK_Truong_ThanhPho" FromRole="Truongs" ToRole="ThanhPhoes" />
+          <NavigationProperty Name="TruongNganhMonthis" Relationship="Self.FK_TruongNganhMonthi_Truongs" FromRole="Truongs" ToRole="TruongNganhMonthis" />
           <NavigationProperty Name="TruongNganhs" Relationship="Self.FK_TruongNganhs_Truongs" FromRole="Truongs" ToRole="TruongNganhs" />
         </EntityType>
-        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+        <EntityType Name="UserComments">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Href" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Rate" Type="Int32" />
+          <Property Name="ReportDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="TruongNganhs">
+          <Key>
+            <PropertyRef Name="MaTruong" />
+            <PropertyRef Name="MaNganh" />
+            <PropertyRef Name="NgayCapNhat" />
+          </Key>
+          <Property Name="MaTruong" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MaNganh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Diem1" Type="Double" />
+          <Property Name="Diem2" Type="Double" />
+          <Property Name="Diem3" Type="Double" />
+          <Property Name="NgayCapNhat" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Nganhs" Relationship="Self.FK_TruongNganhs_Nganhs" FromRole="TruongNganhs" ToRole="Nganhs" />
+          <NavigationProperty Name="Truongs" Relationship="Self.FK_TruongNganhs_Truongs" FromRole="TruongNganhs" ToRole="Truongs" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="AspNetUserClaims">
-              <PropertyRef Name="User_Id" />
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
@@ -584,9 +910,33 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AspNetUsers_Nganhs">
+          <End Role="Nganhs" Type="Self.Nganhs" Multiplicity="0..1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nganhs">
+              <PropertyRef Name="MaNganh" />
+            </Principal>
+            <Dependent Role="AspNetUsers">
+              <PropertyRef Name="idNganh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUsers_Truongs">
+          <End Role="Truongs" Type="Self.Truongs" Multiplicity="0..1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Truongs">
+              <PropertyRef Name="MaTruong" />
+            </Principal>
+            <Dependent Role="AspNetUsers">
+              <PropertyRef Name="idTruong" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_BaiViets_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
-          <End Role="BaiViets" Type="Self.BaiViet" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="BaiViets" Type="Self.BaiViets" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
@@ -597,19 +947,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_InternalMessage_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
-          <End Role="InternalMessage" Type="Self.InternalMessage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="InternalMessage">
-              <PropertyRef Name="From" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_InternalMessage_AspNetUsers1">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="InternalMessage" Type="Self.InternalMessage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
@@ -620,8 +958,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_InternalMessage_AspNetUsers1">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="InternalMessage" Type="Self.InternalMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InternalMessage">
+              <PropertyRef Name="From" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Questions_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Questions">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RatePost_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="RatePost" Type="Self.RatePost" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
@@ -632,8 +994,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SachChoMuon_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="SachChoMuon" Type="Self.SachChoMuon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SachChoMuon">
+              <PropertyRef Name="id_nguoidung" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RatePost_BaiViets">
-          <End Role="BaiViets" Type="Self.BaiViet" Multiplicity="1" />
+          <End Role="BaiViets" Type="Self.BaiViets" Multiplicity="1" />
           <End Role="RatePost" Type="Self.RatePost" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BaiViets">
@@ -644,9 +1018,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TruongNganhMonthi_Nganhs">
+          <End Role="Nganhs" Type="Self.Nganhs" Multiplicity="1" />
+          <End Role="TruongNganhMonthis" Type="Self.TruongNganhMonthis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nganhs">
+              <PropertyRef Name="MaNganh" />
+            </Principal>
+            <Dependent Role="TruongNganhMonthis">
+              <PropertyRef Name="MaNganh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TruongNganhs_Nganhs">
-          <End Role="Nganhs" Type="Self.Nganh" Multiplicity="1" />
-          <End Role="TruongNganhs" Type="Self.TruongNganh" Multiplicity="*" />
+          <End Role="Nganhs" Type="Self.Nganhs" Multiplicity="1" />
+          <End Role="TruongNganhs" Type="Self.TruongNganhs" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Nganhs">
               <PropertyRef Name="MaNganh" />
@@ -656,9 +1042,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SachChoMuon_Sach">
+          <End Role="Sach" Type="Self.Sach" Multiplicity="1" />
+          <End Role="SachChoMuon" Type="Self.SachChoMuon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sach">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SachChoMuon">
+              <PropertyRef Name="id_sach" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Truong_ThanhPho">
-          <End Role="ThanhPhoes" Type="Self.ThanhPho" Multiplicity="1" />
-          <End Role="Truongs" Type="Self.Truong" Multiplicity="*" />
+          <End Role="ThanhPhoes" Type="Self.ThanhPhoes" Multiplicity="1" />
+          <End Role="Truongs" Type="Self.Truongs" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ThanhPhoes">
               <PropertyRef Name="ID" />
@@ -668,9 +1066,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TruongNganhMonthi_Truongs">
+          <End Role="Truongs" Type="Self.Truongs" Multiplicity="1" />
+          <End Role="TruongNganhMonthis" Type="Self.TruongNganhMonthis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Truongs">
+              <PropertyRef Name="MaTruong" />
+            </Principal>
+            <Dependent Role="TruongNganhMonthis">
+              <PropertyRef Name="MaTruong" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TruongNganhs_Truongs">
-          <End Role="Truongs" Type="Self.Truong" Multiplicity="1" />
-          <End Role="TruongNganhs" Type="Self.TruongNganh" Multiplicity="*" />
+          <End Role="Truongs" Type="Self.Truongs" Multiplicity="1" />
+          <End Role="TruongNganhs" Type="Self.TruongNganhs" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Truongs">
               <PropertyRef Name="MaTruong" />
@@ -681,26 +1091,33 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="AspNetUserRoles">
-          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
         </Association>
         <EntityContainer Name="ProjectHEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
-          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
-          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
-          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
-          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
-          <EntitySet Name="BaiViets" EntityType="Self.BaiViet" />
-          <EntitySet Name="InternalMessages" EntityType="Self.InternalMessage" />
-          <EntitySet Name="KhoiThis" EntityType="Self.KhoiThi" />
-          <EntitySet Name="Nganhs" EntityType="Self.Nganh" />
-          <EntitySet Name="RatePosts" EntityType="Self.RatePost" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <EntitySet Name="SystemInformations" EntityType="Self.SystemInformation" />
-          <EntitySet Name="ThanhPhoes" EntityType="Self.ThanhPho" />
-          <EntitySet Name="TruongNganhs" EntityType="Self.TruongNganh" />
-          <EntitySet Name="Truongs" EntityType="Self.Truong" />
-          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
+          <EntitySet Name="BaiViets" EntityType="Self.BaiViets" />
+          <EntitySet Name="InternalMessage" EntityType="Self.InternalMessage" />
+          <EntitySet Name="KhoiThis" EntityType="Self.KhoiThis" />
+          <EntitySet Name="MBTI" EntityType="Self.MBTI" />
+          <EntitySet Name="Nganhs" EntityType="Self.Nganhs" />
+          <EntitySet Name="Questions" EntityType="Self.Questions" />
+          <EntitySet Name="RatePost" EntityType="Self.RatePost" />
+          <EntitySet Name="Sach" EntityType="Self.Sach" />
+          <EntitySet Name="SachChoMuon" EntityType="Self.SachChoMuon" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="SystemInformation" EntityType="Self.SystemInformation" />
+          <EntitySet Name="SystemLogs" EntityType="Self.SystemLogs" />
+          <EntitySet Name="ThanhPhoes" EntityType="Self.ThanhPhoes" />
+          <EntitySet Name="TruongNganhMonthis" EntityType="Self.TruongNganhMonthis" />
+          <EntitySet Name="Truongs" EntityType="Self.Truongs" />
+          <EntitySet Name="UserComments" EntityType="Self.UserComments" />
+          <EntitySet Name="TruongNganhs" EntityType="Self.TruongNganhs" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
           </AssociationSet>
@@ -708,33 +1125,61 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
+          <AssociationSet Name="FK_AspNetUsers_Nganhs" Association="Self.FK_AspNetUsers_Nganhs">
+            <End Role="Nganhs" EntitySet="Nganhs" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUsers_Truongs" Association="Self.FK_AspNetUsers_Truongs">
+            <End Role="Truongs" EntitySet="Truongs" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
           <AssociationSet Name="FK_BaiViets_AspNetUsers" Association="Self.FK_BaiViets_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="BaiViets" EntitySet="BaiViets" />
           </AssociationSet>
           <AssociationSet Name="FK_InternalMessage_AspNetUsers" Association="Self.FK_InternalMessage_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="InternalMessage" EntitySet="InternalMessages" />
+            <End Role="InternalMessage" EntitySet="InternalMessage" />
           </AssociationSet>
           <AssociationSet Name="FK_InternalMessage_AspNetUsers1" Association="Self.FK_InternalMessage_AspNetUsers1">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="InternalMessage" EntitySet="InternalMessages" />
+            <End Role="InternalMessage" EntitySet="InternalMessage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Questions_AspNetUsers" Association="Self.FK_Questions_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Questions" EntitySet="Questions" />
           </AssociationSet>
           <AssociationSet Name="FK_RatePost_AspNetUsers" Association="Self.FK_RatePost_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="RatePost" EntitySet="RatePosts" />
+            <End Role="RatePost" EntitySet="RatePost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SachChoMuon_AspNetUsers" Association="Self.FK_SachChoMuon_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="SachChoMuon" EntitySet="SachChoMuon" />
           </AssociationSet>
           <AssociationSet Name="FK_RatePost_BaiViets" Association="Self.FK_RatePost_BaiViets">
             <End Role="BaiViets" EntitySet="BaiViets" />
-            <End Role="RatePost" EntitySet="RatePosts" />
+            <End Role="RatePost" EntitySet="RatePost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TruongNganhMonthi_Nganhs" Association="Self.FK_TruongNganhMonthi_Nganhs">
+            <End Role="Nganhs" EntitySet="Nganhs" />
+            <End Role="TruongNganhMonthis" EntitySet="TruongNganhMonthis" />
           </AssociationSet>
           <AssociationSet Name="FK_TruongNganhs_Nganhs" Association="Self.FK_TruongNganhs_Nganhs">
             <End Role="Nganhs" EntitySet="Nganhs" />
             <End Role="TruongNganhs" EntitySet="TruongNganhs" />
           </AssociationSet>
+          <AssociationSet Name="FK_SachChoMuon_Sach" Association="Self.FK_SachChoMuon_Sach">
+            <End Role="Sach" EntitySet="Sach" />
+            <End Role="SachChoMuon" EntitySet="SachChoMuon" />
+          </AssociationSet>
           <AssociationSet Name="FK_Truong_ThanhPho" Association="Self.FK_Truong_ThanhPho">
             <End Role="ThanhPhoes" EntitySet="ThanhPhoes" />
             <End Role="Truongs" EntitySet="Truongs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TruongNganhMonthi_Truongs" Association="Self.FK_TruongNganhMonthi_Truongs">
+            <End Role="Truongs" EntitySet="Truongs" />
+            <End Role="TruongNganhMonthis" EntitySet="TruongNganhMonthis" />
           </AssociationSet>
           <AssociationSet Name="FK_TruongNganhs_Truongs" Association="Self.FK_TruongNganhs_Truongs">
             <End Role="Truongs" EntitySet="Truongs" />
@@ -744,16 +1189,7 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <EntitySet Name="SystemLogs" EntityType="ProjectHModel.SystemLog" />
         </EntityContainer>
-        <EntityType Name="SystemLog">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LogMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="DateCreated" Type="DateTime" Precision="3" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -771,47 +1207,60 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetRoles">
-            <EntityTypeMapping TypeName="ProjectHModel.AspNetRole">
+            <EntityTypeMapping TypeName="ProjectHModel.AspNetRoles">
               <MappingFragment StoreEntitySet="AspNetRoles">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserClaims">
-            <EntityTypeMapping TypeName="ProjectHModel.AspNetUserClaim">
+            <EntityTypeMapping TypeName="ProjectHModel.AspNetUserClaims">
               <MappingFragment StoreEntitySet="AspNetUserClaims">
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
                 <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
-                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserLogins">
-            <EntityTypeMapping TypeName="ProjectHModel.AspNetUserLogin">
+            <EntityTypeMapping TypeName="ProjectHModel.AspNetUserLogins">
               <MappingFragment StoreEntitySet="AspNetUserLogins">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
                 <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUsers">
-            <EntityTypeMapping TypeName="ProjectHModel.AspNetUser">
+            <EntityTypeMapping TypeName="ProjectHModel.AspNetUsers">
               <MappingFragment StoreEntitySet="AspNetUsers">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
                 <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
                 <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-                <ScalarProperty Name="Discriminator" ColumnName="Discriminator" />
-                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
-                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="profile_avatar_link" ColumnName="profile_avatar_link" />
+                <ScalarProperty Name="idTruong" ColumnName="idTruong" />
+                <ScalarProperty Name="idNganh" ColumnName="idNganh" />
+                <ScalarProperty Name="congViec" ColumnName="congViec" />
+                <ScalarProperty Name="fbid" ColumnName="fbid" />
+                <ScalarProperty Name="sinhNhat" ColumnName="sinhNhat" />
+                <ScalarProperty Name="hoTen" ColumnName="hoTen" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="BaiViets">
-            <EntityTypeMapping TypeName="ProjectHModel.BaiViet">
+            <EntityTypeMapping TypeName="ProjectHModel.BaiViets">
               <MappingFragment StoreEntitySet="BaiViets">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="TieuDe" ColumnName="TieuDe" />
@@ -820,10 +1269,13 @@
                 <ScalarProperty Name="NgayCapNhat" ColumnName="NgayCapNhat" />
                 <ScalarProperty Name="Trangthai" ColumnName="Trangthai" />
                 <ScalarProperty Name="Tabs" ColumnName="Tabs" />
+                <ScalarProperty Name="linkImage" ColumnName="linkImage" />
+                <ScalarProperty Name="SoLanTruyCap" ColumnName="SoLanTruyCap" />
+                <ScalarProperty Name="ChuyenMuc" ColumnName="ChuyenMuc" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="InternalMessages">
+          <EntitySetMapping Name="InternalMessage">
             <EntityTypeMapping TypeName="ProjectHModel.InternalMessage">
               <MappingFragment StoreEntitySet="InternalMessage">
                 <ScalarProperty Name="From" ColumnName="From" />
@@ -834,7 +1286,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="KhoiThis">
-            <EntityTypeMapping TypeName="ProjectHModel.KhoiThi">
+            <EntityTypeMapping TypeName="ProjectHModel.KhoiThis">
               <MappingFragment StoreEntitySet="KhoiThis">
                 <ScalarProperty Name="Ten" ColumnName="Ten" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -842,15 +1294,38 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="MBTI">
+            <EntityTypeMapping TypeName="ProjectHModel.MBTI">
+              <MappingFragment StoreEntitySet="MBTI">
+                <ScalarProperty Name="idMBTI" ColumnName="idMBTI" />
+                <ScalarProperty Name="Tags" ColumnName="Tags" />
+                <ScalarProperty Name="GioiThieu" ColumnName="GioiThieu" />
+                <ScalarProperty Name="short_Description" ColumnName="short_Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Nganhs">
-            <EntityTypeMapping TypeName="ProjectHModel.Nganh">
+            <EntityTypeMapping TypeName="ProjectHModel.Nganhs">
               <MappingFragment StoreEntitySet="Nganhs">
                 <ScalarProperty Name="Ten" ColumnName="Ten" />
                 <ScalarProperty Name="MaNganh" ColumnName="MaNganh" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="RatePosts">
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="ProjectHModel.Questions">
+              <MappingFragment StoreEntitySet="Questions">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Tieude" ColumnName="Tieude" />
+                <ScalarProperty Name="Noidung" ColumnName="Noidung" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="Ngaydang" ColumnName="Ngaydang" />
+                <ScalarProperty Name="Tabs" ColumnName="Tabs" />
+                <ScalarProperty Name="SoLanTruyCap" ColumnName="SoLanTruyCap" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RatePost">
             <EntityTypeMapping TypeName="ProjectHModel.RatePost">
               <MappingFragment StoreEntitySet="RatePost">
                 <ScalarProperty Name="IDBaiViet" ColumnName="IDBaiViet" />
@@ -859,8 +1334,31 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Sach">
+            <EntityTypeMapping TypeName="ProjectHModel.Sach">
+              <MappingFragment StoreEntitySet="Sach">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Ten" ColumnName="Ten" />
+                <ScalarProperty Name="linkanh" ColumnName="linkanh" />
+                <ScalarProperty Name="NXB" ColumnName="NXB" />
+                <ScalarProperty Name="tacgia" ColumnName="tacgia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SachChoMuon">
+            <EntityTypeMapping TypeName="ProjectHModel.SachChoMuon">
+              <MappingFragment StoreEntitySet="SachChoMuon">
+                <ScalarProperty Name="id_sach" ColumnName="id_sach" />
+                <ScalarProperty Name="id_nguoidung" ColumnName="id_nguoidung" />
+                <ScalarProperty Name="loai" ColumnName="loai" />
+                <ScalarProperty Name="diachi" ColumnName="diachi" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="soluong" ColumnName="soluong" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="ProjectHModel.sysdiagram">
+            <EntityTypeMapping TypeName="ProjectHModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -870,7 +1368,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SystemInformations">
+          <EntitySetMapping Name="SystemInformation">
             <EntityTypeMapping TypeName="ProjectHModel.SystemInformation">
               <MappingFragment StoreEntitySet="SystemInformation">
                 <ScalarProperty Name="Key" ColumnName="Key" />
@@ -878,8 +1376,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="SystemLogs">
+            <EntityTypeMapping TypeName="ProjectHModel.SystemLogs">
+              <MappingFragment StoreEntitySet="SystemLogs">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="LogMessage" ColumnName="LogMessage" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ThanhPhoes">
-            <EntityTypeMapping TypeName="ProjectHModel.ThanhPho">
+            <EntityTypeMapping TypeName="ProjectHModel.ThanhPhoes">
               <MappingFragment StoreEntitySet="ThanhPhoes">
                 <ScalarProperty Name="Ten" ColumnName="Ten" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -887,21 +1394,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TruongNganhs">
-            <EntityTypeMapping TypeName="ProjectHModel.TruongNganh">
-              <MappingFragment StoreEntitySet="TruongNganhs">
+          <EntitySetMapping Name="TruongNganhMonthis">
+            <EntityTypeMapping TypeName="ProjectHModel.TruongNganhMonthis">
+              <MappingFragment StoreEntitySet="TruongNganhMonthis">
                 <ScalarProperty Name="MaTruong" ColumnName="MaTruong" />
                 <ScalarProperty Name="MaNganh" ColumnName="MaNganh" />
-                <ScalarProperty Name="KhoiThi" ColumnName="KhoiThi" />
-                <ScalarProperty Name="Diem1" ColumnName="Diem1" />
-                <ScalarProperty Name="Diem2" ColumnName="Diem2" />
-                <ScalarProperty Name="Diem3" ColumnName="Diem3" />
-                <ScalarProperty Name="NgayCapNhat" ColumnName="NgayCapNhat" />
+                <ScalarProperty Name="idMon1" ColumnName="idMon1" />
+                <ScalarProperty Name="idMon2" ColumnName="idMon2" />
+                <ScalarProperty Name="idMon3" ColumnName="idMon3" />
+                <ScalarProperty Name="Nam" ColumnName="Nam" />
+                <ScalarProperty Name="Diem" ColumnName="Diem" />
+                <ScalarProperty Name="SoLuongTruyCap" ColumnName="SoLuongTruyCap" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Truongs">
-            <EntityTypeMapping TypeName="ProjectHModel.Truong">
+            <EntityTypeMapping TypeName="ProjectHModel.Truongs">
               <MappingFragment StoreEntitySet="Truongs">
                 <ScalarProperty Name="Ten" ColumnName="Ten" />
                 <ScalarProperty Name="Website" ColumnName="Website" />
@@ -909,6 +1417,33 @@
                 <ScalarProperty Name="MaTruong" ColumnName="MaTruong" />
                 <ScalarProperty Name="LoaiTruong" ColumnName="LoaiTruong" />
                 <ScalarProperty Name="linkLogo" ColumnName="linkLogo" />
+                <ScalarProperty Name="DeAnTuyenSInh" ColumnName="DeAnTuyenSInh" />
+                <ScalarProperty Name="GioiThieu" ColumnName="GioiThieu" />
+                <ScalarProperty Name="background" ColumnName="background" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserComments">
+            <EntityTypeMapping TypeName="ProjectHModel.UserComments">
+              <MappingFragment StoreEntitySet="UserComments">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Href" ColumnName="Href" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="ReportDate" ColumnName="ReportDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TruongNganhs">
+            <EntityTypeMapping TypeName="ProjectHModel.TruongNganhs">
+              <MappingFragment StoreEntitySet="TruongNganhs">
+                <ScalarProperty Name="MaTruong" ColumnName="MaTruong" />
+                <ScalarProperty Name="MaNganh" ColumnName="MaNganh" />
+                <ScalarProperty Name="Diem1" ColumnName="Diem1" />
+                <ScalarProperty Name="Diem2" ColumnName="Diem2" />
+                <ScalarProperty Name="Diem3" ColumnName="Diem3" />
+                <ScalarProperty Name="NgayCapNhat" ColumnName="NgayCapNhat" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -920,15 +1455,6 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="SystemLogs">
-            <EntityTypeMapping TypeName="ProjectHModel.SystemLog">
-              <MappingFragment StoreEntitySet="SystemLogs">
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="LogMessage" ColumnName="LogMessage" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -943,7 +1469,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

@@ -12,14 +12,18 @@ namespace scrapping.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class InternalMessage
+    public partial class TruongNganhMonthis
     {
-        public string From { get; set; }
-        public string To { get; set; }
-        public string Mesage { get; set; }
-        public System.DateTime DateCreate { get; set; }
+        public string MaTruong { get; set; }
+        public string MaNganh { get; set; }
+        public int idMon1 { get; set; }
+        public int idMon2 { get; set; }
+        public int idMon3 { get; set; }
+        public int Nam { get; set; }
+        public double Diem { get; set; }
+        public int SoLuongTruyCap { get; set; }
     
-        public virtual AspNetUsers AspNetUsers { get; set; }
-        public virtual AspNetUsers AspNetUsers1 { get; set; }
+        public virtual Nganhs Nganhs { get; set; }
+        public virtual Truongs Truongs { get; set; }
     }
 }

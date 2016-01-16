@@ -12,14 +12,11 @@ namespace scrapping.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class InternalMessage
+    public partial class MBTI
     {
-        public string From { get; set; }
-        public string To { get; set; }
-        public string Mesage { get; set; }
-        public System.DateTime DateCreate { get; set; }
-    
-        public virtual AspNetUsers AspNetUsers { get; set; }
-        public virtual AspNetUsers AspNetUsers1 { get; set; }
+        public string idMBTI { get; set; }
+        public string Tags { get; set; }
+        public string GioiThieu { get; set; }
+        public string short_Description { get; set; }
     }
 }

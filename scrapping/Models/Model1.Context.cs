@@ -26,20 +26,26 @@ namespace scrapping.Models
         }
     
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
-        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
-        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
-        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
-        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-        public virtual DbSet<BaiViet> BaiViets { get; set; }
-        public virtual DbSet<InternalMessage> InternalMessages { get; set; }
-        public virtual DbSet<KhoiThi> KhoiThis { get; set; }
-        public virtual DbSet<Nganh> Nganhs { get; set; }
-        public virtual DbSet<RatePost> RatePosts { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<SystemInformation> SystemInformations { get; set; }
-        public virtual DbSet<ThanhPho> ThanhPhoes { get; set; }
-        public virtual DbSet<TruongNganh> TruongNganhs { get; set; }
-        public virtual DbSet<Truong> Truongs { get; set; }
-        public virtual DbSet<SystemLog> SystemLogs { get; set; }
+        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<BaiViets> BaiViets { get; set; }
+        public virtual DbSet<InternalMessage> InternalMessage { get; set; }
+        public virtual DbSet<KhoiThis> KhoiThis { get; set; }
+        public virtual DbSet<MBTI> MBTI { get; set; }
+        public virtual DbSet<Nganhs> Nganhs { get; set; }
+        public virtual DbSet<Questions> Questions { get; set; }
+        public virtual DbSet<RatePost> RatePost { get; set; }
+        public virtual DbSet<Sach> Sach { get; set; }
+        public virtual DbSet<SachChoMuon> SachChoMuon { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<SystemInformation> SystemInformation { get; set; }
+        public virtual DbSet<SystemLogs> SystemLogs { get; set; }
+        public virtual DbSet<ThanhPhoes> ThanhPhoes { get; set; }
+        public virtual DbSet<TruongNganhMonthis> TruongNganhMonthis { get; set; }
+        public virtual DbSet<Truongs> Truongs { get; set; }
+        public virtual DbSet<UserComments> UserComments { get; set; }
+        public virtual DbSet<TruongNganhs> TruongNganhs { get; set; }
     }
 }

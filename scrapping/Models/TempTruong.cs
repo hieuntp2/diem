@@ -12,14 +12,9 @@ namespace scrapping.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class InternalMessage
+    public partial class TempTruong
     {
-        public string From { get; set; }
-        public string To { get; set; }
-        public string Mesage { get; set; }
-        public System.DateTime DateCreate { get; set; }
-    
-        public virtual AspNetUsers AspNetUsers { get; set; }
-        public virtual AspNetUsers AspNetUsers1 { get; set; }
+        public string Ten { get; set; }
+        public string Ma { get; set; }
     }
 }

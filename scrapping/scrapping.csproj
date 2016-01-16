@@ -164,40 +164,60 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\diem247Controller.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MyClass\MaMon.cs" />
     <Compile Include="Controllers\NodeNganh.cs" />
     <Compile Include="Controllers\truongnode.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AspNetRole.cs">
+    <Compile Include="Models\AspNetRoles.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AspNetUser.cs">
+    <Compile Include="Models\AspNetUserClaims.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AspNetUserClaim.cs">
+    <Compile Include="Models\AspNetUserLogins.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AspNetUserLogin.cs">
+    <Compile Include="Models\AspNetUsers.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\BaiViet.cs">
+    <Compile Include="Models\BaiViets.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\C__MigrationHistory.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\diem247.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>diem247.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\diem247.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>diem247.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\diem247.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>diem247.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InternalMessage.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\KhoiThi.cs">
+    <Compile Include="Models\KhoiThis.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MBTI.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -213,28 +233,49 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Nganh.cs">
+    <Compile Include="Models\Nganhs.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Questions.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RatePost.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
+    <Compile Include="Models\Sach.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SachChoMuon.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SystemInformation.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SystemLog.cs">
+    <Compile Include="Models\SystemLogs.cs">
+      <DependentUpon>diem247.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TempTruong.cs">
+      <DependentUpon>diem247.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ThanhPhoes.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ThanhPho.cs">
+    <Compile Include="Models\truongnganhmonthi.cs">
+      <DependentUpon>diem247.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TruongNganhMonthis.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Truong.cs">
+    <Compile Include="Models\TruongNganhs.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TruongNganh.cs">
+    <Compile Include="Models\Truongs.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserComments.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -264,6 +305,23 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
+    <EntityDeploy Include="Models\diem247.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>diem247.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\diem247.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>diem247.edmx</DependentUpon>
+      <LastGenOutput>diem247.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\diem247.edmx.diagram">
+      <DependentUpon>diem247.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\diem247.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>diem247.edmx</DependentUpon>
+      <LastGenOutput>diem247.cs</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -315,6 +373,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\diem247\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

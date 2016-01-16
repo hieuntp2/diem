@@ -18,7 +18,7 @@ namespace scrapping.Models
         public string IDUsername { get; set; }
         public bool Like { get; set; }
     
-        public virtual AspNetUser AspNetUser { get; set; }
-        public virtual BaiViet BaiViet { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
+        public virtual BaiViets BaiViets { get; set; }
     }
 }

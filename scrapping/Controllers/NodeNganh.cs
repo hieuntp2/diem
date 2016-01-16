@@ -11,5 +11,6 @@ namespace scrapping.Controllers
         public string MaNganh;
         public string Khoi;
         public float DiemChuan;
+        public string ToHopMon;
     }
 }

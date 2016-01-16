@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="diem247Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="SystemLogs">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LogMessage" Type="ntext" />
+          <Property Name="DateCreated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TempTruong">
+          <Key>
+            <PropertyRef Name="Ma" />
+          </Key>
+          <Property Name="Ten" Type="ntext" Nullable="false" />
+          <Property Name="Ma" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="truongnganhmonthi">
+          <Key>
+            <PropertyRef Name="matruong" />
+            <PropertyRef Name="manganh" />
+            <PropertyRef Name="ToHopMon" />
+          </Key>
+          <Property Name="matruong" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="manganh" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ToHopMon" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="tennganh" Type="ntext" />
+          <Property Name="tentruong" Type="ntext" />
+          <Property Name="diem" Type="float" />
+        </EntityType>
+        <EntityContainer Name="diem247ModelStoreContainer">
+          <EntitySet Name="SystemLogs" EntityType="Self.SystemLogs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TempTruong" EntityType="Self.TempTruong" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="truongnganhmonthi" EntityType="Self.truongnganhmonthi" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="diem247Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="diem247Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="SystemLogs" EntityType="diem247Model.SystemLogs" />
+          <EntitySet Name="TempTruong" EntityType="diem247Model.TempTruong" />
+          <EntitySet Name="truongnganhmonthi" EntityType="diem247Model.truongnganhmonthi" />
+        </EntityContainer>
+        <EntityType Name="SystemLogs">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LogMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="TempTruong">
+          <Key>
+            <PropertyRef Name="Ma" />
+          </Key>
+          <Property Name="Ten" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Ma" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="truongnganhmonthi">
+          <Key>
+            <PropertyRef Name="matruong" />
+            <PropertyRef Name="manganh" />
+            <PropertyRef Name="ToHopMon" />
+          </Key>
+          <Property Name="matruong" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="manganh" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ToHopMon" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="tennganh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="tentruong" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="diem" Type="Double" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="diem247ModelStoreContainer" CdmEntityContainer="diem247Entities">
+          <EntitySetMapping Name="SystemLogs">
+            <EntityTypeMapping TypeName="diem247Model.SystemLogs">
+              <MappingFragment StoreEntitySet="SystemLogs">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="LogMessage" ColumnName="LogMessage" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TempTruong">
+            <EntityTypeMapping TypeName="diem247Model.TempTruong">
+              <MappingFragment StoreEntitySet="TempTruong">
+                <ScalarProperty Name="Ma" ColumnName="Ma" />
+                <ScalarProperty Name="Ten" ColumnName="Ten" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="truongnganhmonthi">
+            <EntityTypeMapping TypeName="diem247Model.truongnganhmonthi">
+              <MappingFragment StoreEntitySet="truongnganhmonthi">
+                <ScalarProperty Name="diem" ColumnName="diem" />
+                <ScalarProperty Name="tentruong" ColumnName="tentruong" />
+                <ScalarProperty Name="tennganh" ColumnName="tennganh" />
+                <ScalarProperty Name="ToHopMon" ColumnName="ToHopMon" />
+                <ScalarProperty Name="manganh" ColumnName="manganh" />
+                <ScalarProperty Name="matruong" ColumnName="matruong" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

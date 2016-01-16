@@ -12,14 +12,16 @@ namespace scrapping.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class InternalMessage
+    public partial class Questions
     {
-        public string From { get; set; }
-        public string To { get; set; }
-        public string Mesage { get; set; }
-        public System.DateTime DateCreate { get; set; }
+        public int id { get; set; }
+        public string Tieude { get; set; }
+        public string Noidung { get; set; }
+        public string userid { get; set; }
+        public Nullable<System.DateTime> Ngaydang { get; set; }
+        public string Tabs { get; set; }
+        public Nullable<int> SoLanTruyCap { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
-        public virtual AspNetUsers AspNetUsers1 { get; set; }
     }
 }
