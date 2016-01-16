@@ -14,6 +14,7 @@ namespace scrapping.Controllers
         diem247Entities db = new diem247Entities();
 
         Random rd = new Random();
+        int _currentSchool = 0;
 
         // Diem 2015, http://diemthi.tuyensinh247.com/diem-chuan.html
         public ActionResult Index()
@@ -24,7 +25,7 @@ namespace scrapping.Controllers
 
             // Step 1: Tim truong
             foreach (HtmlNode node in nodelist)
-            {
+            {          
                 // Ten truong + href
                 HtmlNode nodeA = node.ChildNodes[0];
 
@@ -35,45 +36,40 @@ namespace scrapping.Controllers
                 item.hreft = "http://diemthi.tuyensinh247.com" + nodeA.Attributes["href"].Value;
                 item.ten = nodeA.Attributes["title"].Value;
 
-                try
+                TempTruong temptruong = db.TempTruongs.SingleOrDefault(t => t.Ma == item.MaTruong);
+                if (temptruong == null)
                 {
-                    TempTruong temptruong = new TempTruong();
+                    temptruong = new TempTruong();
                     temptruong.Ma = item.MaTruong;
                     temptruong.Ten = item.ten;
-                    db.TempTruong.Add(temptruong);
+                    db.TempTruongs.Add(temptruong);
                     db.SaveChanges();
-                }
-                catch(Exception e)
-                {
-                    Logs("Step_1: " + item.MaTruong + " - " + item.ten + ": " + e.ToString());
-                }
-                finally
-                {
-
                 }
 
                 timNganh(ref item);
+
                 addTruongNganhbyID(item);
                 System.Threading.Thread.Sleep(rd.Next(500, 1000));
-            }
+                _currentSchool += 1;
 
+            }
+            Logs("FINISH at " + DateTime.Now);
             return View();
         }
 
         // step 2: Tim Nganh
         private void timNganh(ref NodeTruong truong)
         {
-            scrapping.Models.truongnganhmonthi tn = new truongnganhmonthi();
-            try
-            {
+           
                 HtmlWeb htmlWeb = new HtmlWeb();
-                HtmlDocument htmlDocument = htmlWeb.Load(truong.hreft);//tr[contains(@class, 'bg_white')]
+                HtmlDocument htmlDocument = htmlWeb.Load(truong.hreft);
                 HtmlNodeCollection nodelist = htmlDocument.DocumentNode.SelectNodes(".//*[@class='bg_white']");
 
                 for (int i = 0; i < nodelist.Count; i++)
                 {
                     try
                     {
+                        scrapping.Models.truongnganhmonthi tn = new truongnganhmonthi();
                         //3 Ma nganh
                         tn.manganh = nodelist[i].ChildNodes[3].ChildNodes[0].InnerText;
                         //5 Ten Nganh
@@ -83,8 +79,22 @@ namespace scrapping.Controllers
                         //9 Diem Chuan
                         tn.diem = float.Parse(nodelist[i].ChildNodes[9].ChildNodes[0].InnerText);
 
-                        db.truongnganhmonthi.Add(tn);
-                        db.SaveChanges();
+                        tn.matruong = truong.MaTruong;
+                        tn.tentruong = truong.ten;
+
+                        truongnganhmonthi temptruongnganh = db.truongnganhmonthis.SingleOrDefault(t => t.matruong == tn.matruong
+                                                                                                && t.manganh == tn.manganh
+                                                                                                && t.ToHopMon == tn.ToHopMon);
+
+                        if (temptruongnganh != null)
+                        {
+                            Logs("Step2: Trung TN: " + tn.matruong + "_" + tn.manganh);
+                        }
+                        else
+                        {
+                            db.truongnganhmonthis.Add(tn);
+                            db.SaveChanges();
+                        }
                     }
                     catch (Exception e)
                     {
@@ -95,17 +105,7 @@ namespace scrapping.Controllers
 
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Logs("Step2_ Tr: " + truong.MaTruong + ": " + ex.ToString());
-            }
-            finally
-            {
-
-            }
-
-
+          
         }
 
         private void addTruongNganhbyID(NodeTruong truong)
@@ -160,10 +160,9 @@ namespace scrapping.Controllers
 
         private void Logs(string Message)
         {
-            SystemLogs log = new SystemLogs();
-            log.DateCreated = DateTime.Now;
-            log.LogMessage = Message;
-            db.SystemLogs.Add(log);
+            tempLog log = db.tempLogs.Create();
+            log.mMessage = Message;
+            db.tempLogs.Add(log);
             db.SaveChanges();
         }
 

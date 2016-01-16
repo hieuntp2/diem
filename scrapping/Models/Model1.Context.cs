@@ -13,10 +13,10 @@ namespace scrapping.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ProjectHEntities : DbContext
+    public partial class diem247Entities : DbContext
     {
-        public ProjectHEntities()
-            : base("name=ProjectHEntities")
+        public diem247Entities()
+            : base("name=diem247Entities")
         {
         }
     
@@ -25,27 +25,9 @@ namespace scrapping.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
-        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
-        public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
-        public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
-        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
-        public virtual DbSet<BaiViets> BaiViets { get; set; }
-        public virtual DbSet<InternalMessage> InternalMessage { get; set; }
-        public virtual DbSet<KhoiThis> KhoiThis { get; set; }
-        public virtual DbSet<MBTI> MBTI { get; set; }
-        public virtual DbSet<Nganhs> Nganhs { get; set; }
-        public virtual DbSet<Questions> Questions { get; set; }
-        public virtual DbSet<RatePost> RatePost { get; set; }
-        public virtual DbSet<Sach> Sach { get; set; }
-        public virtual DbSet<SachChoMuon> SachChoMuon { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<SystemInformation> SystemInformation { get; set; }
-        public virtual DbSet<SystemLogs> SystemLogs { get; set; }
-        public virtual DbSet<ThanhPhoes> ThanhPhoes { get; set; }
-        public virtual DbSet<TruongNganhMonthis> TruongNganhMonthis { get; set; }
-        public virtual DbSet<Truongs> Truongs { get; set; }
-        public virtual DbSet<UserComments> UserComments { get; set; }
-        public virtual DbSet<TruongNganhs> TruongNganhs { get; set; }
+        public virtual DbSet<SystemLog> SystemLogs { get; set; }
+        public virtual DbSet<TempTruong> TempTruongs { get; set; }
+        public virtual DbSet<truongnganhmonthi> truongnganhmonthis { get; set; }
+        public virtual DbSet<tempLog> tempLogs { get; set; }
     }
 }
